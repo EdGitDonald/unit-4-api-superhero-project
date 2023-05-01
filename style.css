@@ -1,0 +1,43 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+/*Landing page styling , Contains Header and Search Bar*/
+
+header{
+    border: 1px solid red;
+    height: auto;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav{
+    border: 1px red solid;
+}
+
+nav :nth-child(2){
+    padding-left: 20px;
+}
+
+.main-container{
+    border: red 1px solid;
+    display: flex;
+    justify-content: center;
+    padding: 100px 20px;
+}
+
+.search-bar-container{
+    display: flex;
+    flex-direction: column;  
+}
+
+.search-bar-container input{
+    text-align: center;
+    padding: 15px 50px;
+    margin-bottom: 20px;
+}
+
+/* */

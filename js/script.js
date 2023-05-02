@@ -1,11 +1,18 @@
 import { getHero } from "./hero-finder.js";
 
-const Hero = await getHero("Ironman");
+async function getHeroInfo() {
+   const hero = await getHero("Spiderman");
+   console.log(hero);
 
- getHero("Ironman");
-
- console.log(Hero);
-
-async function getHeroInfo(getHero){
-    const Hero = await getHero("Ironman");
+    const heroObject = {};
+    console.log(hero?.appearance.eyeColor);
+    if(hero?.appearance?.eyeColor){heroObject.eyeColor = hero.appearance.eyeColor}
+    else{heroObject.eyeColor = "Not Available";}
+    return heroObject;
 }
+
+
+const heroInfo = await getHeroInfo();
+
+console.log(heroInfo.eyeColor);
+

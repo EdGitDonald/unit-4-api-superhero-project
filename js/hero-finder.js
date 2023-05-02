@@ -1,9 +1,9 @@
 import { apiKey } from "./key.js";
 
 
-async function getHero(getHero) {
+async function getHero(hero) {
     console.log("running");
-    const url = `https://superhero-search.p.rapidapi.com/api/?hero=${getHero}`;
+    const url = `https://superhero-search.p.rapidapi.com/api/?hero=${hero}`;
 const options = {
 	method: 'GET',
 	headers: {
@@ -16,14 +16,14 @@ try {
     
 	const response = await fetch(url, options);
    
-	const result = await response.text();
+	const result = await response.json();
     return result;
 } catch (error) {
 	console.error(error);
 }
 }
 
-export {getHero};
+export { getHero };
 
 
 

@@ -1,7 +1,9 @@
 import { getHero } from "./hero-finder.js";
 
-async function getHeroInfo() {
-   const hero = await getHero("Ironman");
+let heroName = "Ironman";
+
+async function getHeroInfo(getHeroString) {
+   const hero = await getHero(getHeroString);
    console.log(hero);
 
     const heroObject = {};
@@ -21,9 +23,9 @@ async function getHeroInfo() {
     if(hero?.appearance?.weight){heroObject.weight = hero.appearance.weight}
     else{heroObject.weight = "Not Available";}
 
-    if(hero?.appearance?.height){heroObject.height = hero.appearance.height}
-    else{heroObject.height = "Not Available";}
-
+    if(hero?.appearance?.height){heroObject.height = hero.appearance.height[0] + " " + hero.appearance.height[1]}
+    else {heroObject.height = "Not Available";}
+    
     if(hero?.biography?.alignment){heroObject.alignment = hero.biography.alignment}
     else{heroObject.alignment = "Not Available";}
 
@@ -73,8 +75,6 @@ async function getHeroInfo() {
     return heroObject;  
 }
 
-// access all data within getHeroInfo
-const heroInfo = await getHeroInfo();
 
 /*how to access data from heroObject;*/
 // console.log(heroInfo.eyeColor);
@@ -86,7 +86,7 @@ const name = document.getElementById("fullName");
 const race = document.getElementById("race");
 const weight = document.getElementById("weight");
 const height = document.getElementById("height");
-const eyeColor = document.getElementById("eyeColor");
+const eyecolor = document.getElementById("eyeColor");
 const gender = document.getElementById("gender");
 // hero-extras ref
 const alterEgos = document.getElementById("alter-egos");
@@ -101,6 +101,13 @@ const combat = document.getElementById("speed");
 const strength = document.getElementById("strength");
 const intelligence = document.getElementById("intelligence");
 
+// access all data within getHeroInfo
+const heroInfo = await getHeroInfo(heroName);
+    setImgSrc(heroImg, heroInfo.md);
+    setHeroApp(heroInfo);
+    setHeroExtras(heroInfo);
+    setHeroStats(heroInfo);
+
 function setImgSrc(imgRef, imgSrc) {
     imgRef.setAttribute("src", imgSrc);
 }
@@ -110,8 +117,8 @@ function setHeroApp(heroInfo) {
     race.innerText = `RACE: ${heroInfo.race}`;
     weight.innerText = `WEIGHT: ${heroInfo.weight}`;
     gender.innerText = `GENDER: ${heroInfo.gender}`;
-    // eyeColor.innerText = `EYECOLOR: ${heroInfo.eyeColor}`;
-    height.innnerText = `HEIGHT: ${heroInfo.height}`;
+    eyecolor.innerText = `EYECOLOR: ${heroInfo.eyeColor}`;
+    height.innerText = `HEIGHT: ${heroInfo.height}`;
 }
 
 function setHeroExtras(heroInfo){
@@ -127,20 +134,28 @@ function setHeroStats(heroInfo){
     durability.innerText = `DURABILITY: ${heroInfo.durability}`;
     combat.innerText = `COMBAT: ${heroInfo.combat}`;
     strength.innerText = `STRENGTH: ${heroInfo.strength}`;
-    intelligence.innerText = `INTELLIGENCE ${heroInfo.intelligence}`;
+    intelligence.innerText = `INTELLIGENCE: ${heroInfo.intelligence}`;
 }
 
 function setText(el, text){
-    el.innnerText = text;
+    el.innerText = text;
 }
 
-fetch("getHeroInfo")
-.then((json) => {
-    setImgSrc(heroImg, heroInfo.md);
-    setHeroApp(heroInfo);
-    setHeroExtras(heroInfo);
-    setHeroStats(heroInfo);
-})
+ const heroInput = document.getElementById("hero-input");
+ const getHeroBtn = document.getElementById("get-hero");
+
+ heroInput.addEventListener("change", function (e) {
+    heroName = e.target.value;
+ });
+
+ getHeroBtn.addEventListener("click", async function () {
+     const heroInfo = await getHeroInfo(heroName);
+     console.log(heroInfo);
+     setImgSrc(heroImg, heroInfo.md);
+     setHeroApp(heroInfo);
+     setHeroExtras(heroInfo);
+     setHeroStats(heroInfo);
+ });
 
 
 

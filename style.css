@@ -24,20 +24,47 @@ nav :nth-child(2){
 
 .main-container{
     border: red 1px solid;
-    display: flex;
+    display: grid;
     justify-content: center;
     padding: 100px 20px;
+    grid-template-areas: 
+    "searchBar heroApp"
+    "heroImg heroExtras"
+    "heroImg heroStats"
+    ;
 }
 
 .search-bar-container{
     display: flex;
-    flex-direction: column;  
+    flex-direction: column; 
+    grid-area: searchBar; 
+    border: pink solid 1px;
 }
 
 .search-bar-container input{
     text-align: center;
     padding: 15px 50px;
     margin-bottom: 20px;
+}
+
+#hero-img{
+    grid-area: heroImg;
+    border: red 1px solid;
+}
+
+#hero-appearance{
+    grid-area: heroApp;
+    border: blue 1px solid;
+}
+
+#hero-extras{
+    grid-area: heroExtras;
+    border: green 1px solid;
+}
+
+#hero-stats{
+    grid-area: heroStats;
+    border: yellow 1px solid;
 }
 
 /* */
